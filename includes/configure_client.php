@@ -111,7 +111,7 @@ function DisplayWPAConfig(){
   exec( 'sudo iw dev wlan0 scan | egrep SSID',$scan_return );
   sleep(3);
   #exec( 'sudo wpa_cli scan_results',$scan_return );
-  for( $shift = 0; $shift < 2; $shift++ ) {
+  for( $shift = 0; $shift < 1; $shift++ ) {
     array_shift($scan_return);
   }
   // display output
