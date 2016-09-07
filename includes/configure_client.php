@@ -117,7 +117,7 @@ function DisplayWPAConfig(){
   // display output
   foreach( $scan_return as $network ) {
     #$arrNetwork = preg_split("/[\t]+/",$network);
-    $arrNetwork = preg_split("/[SSID:]+/",$network);
+    $arrNetwork = preg_split("/[\s]+/",$network);
     if (array_key_exists($arrNetwork[1], $networks)) {
       $networks[$arrNetwork[1]]['visible'] = true;
       #$networks[$arrNetwork[4]]['channel'] = ConvertToChannel($arrNetwork[1]);
