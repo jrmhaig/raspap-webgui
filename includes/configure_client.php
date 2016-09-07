@@ -116,10 +116,11 @@ function DisplayWPAConfig(){
   }
   // display output
   foreach( $scan_return as $network ) {
-    $arrNetwork = preg_split("/[\t]+/",$network);
-    if (array_key_exists($arrNetwork[4], $networks)) {
-      $networks[$arrNetwork[4]]['visible'] = true;
-      $networks[$arrNetwork[4]]['channel'] = ConvertToChannel($arrNetwork[1]);
+    #$arrNetwork = preg_split("/[\t]+/",$network);
+    $arrNetwork = preg_split("/[:]+/",$network);
+    if (array_key_exists($arrNetwork[1], $networks)) {
+      $networks[$arrNetwork[1]]['visible'] = true;
+      #$networks[$arrNetwork[4]]['channel'] = ConvertToChannel($arrNetwork[1]);
       // TODO What if the security has changed?
     } else {
       $networks[$arrNetwork[4]] = array(
