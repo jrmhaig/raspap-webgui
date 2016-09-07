@@ -106,10 +106,11 @@ function DisplayWPAConfig(){
       $status->addMessage('Failed to updated wifi settings', 'danger');
     }
   }
-
-  exec( 'sudo wpa_cli scan' );
+  #
+  #exec('sudo wpa_cli scan');
+  exec( 'sudo iw dev wlan0 scan | egrep SSID',$scan_return );
   sleep(3);
-  exec( 'sudo wpa_cli scan_results',$scan_return );
+  #exec( 'sudo wpa_cli scan_results',$scan_return );
   for( $shift = 0; $shift < 2; $shift++ ) {
     array_shift($scan_return);
   }
