@@ -117,7 +117,7 @@ function DisplayWPAConfig(){
   // display output
   foreach( $scan_return as $network ) {
   	$arrNetwork = preg_split("/[\s+]+/",$network);
-  	if (array_key_exists($arrNetwork[1], $networks)) {
+  	if (array_key_exists($arrNetwork[2], $networks)) {
   		$networks[$arrNetwork[2]]['visible'] = true;
   		$networks[$arrNetwork[2]]['channel'] = $arrNetwork[1];
   		// TODO What if the security has changed?
