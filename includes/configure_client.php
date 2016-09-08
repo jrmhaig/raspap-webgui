@@ -107,31 +107,32 @@ function DisplayWPAConfig(){
     }
   }
   #
-  #exec('sudo wpa_cli scan');
-  exec( 'sudo iw dev wlan0 scan | egrep SSID',$scan_return );
-  sleep(3);
+  
+  exec( 'sudo iwlist wlan0 scan | awk \'/ESSID/ {gsub("ESSID:\""," ",$1); /"/ gsub("\""," ",$1); printf "%s ", $1} /Address/ {printf "%s ", $5} /Frequency/ {gsub("\)","",$4); printf "%s ", $4} /802.11i/ {gsub("802.11i/","",$3); print " ", $3}\'',$scan_return);
+  sleep(4);
   #exec( 'sudo wpa_cli scan_results',$scan_return );
-  for( $shift = 0; $shift < 1; $shift++ ) {
-    array_shift($scan_return);
-  }
+  #for( $shift = 0; $shift < 4; $shift++ ) {
+  #	array_shift($scan_return);
+  #}
   // display output
   foreach( $scan_return as $network ) {
-    #$arrNetwork = preg_split("/[\t]+/",$network);
-    $arrNetwork = preg_split("/[\s]+/",$network);
-    if (array_key_exists($arrNetwork[1], $networks)) {
-      $networks[$arrNetwork[1]]['visible'] = true;
-      #$networks[$arrNetwork[4]]['channel'] = ConvertToChannel($arrNetwork[1]);
-      // TODO What if the security has changed?
-    } else {
-      $networks[$arrNetwork[4]] = array(
-        'configured' => false,
-        'protocol' => ConvertToSecurity($arrNetwork[3]),
-        'channel' => ConvertToChannel($arrNetwork[1]),
-        'passphrase' => '',
-        'visible' => true,
-        'connected' => false
-      );
-    }
+  	$arrNetwork = preg_split("/[\s+]+/",$network);
+  	if (array_key_exists($arrNetwork[1], $networks)) {
+  		$networks[$arrNetwork[2]]['visible'] = true;
+  		$networks[$arrNetwork[2]]['channel'] = $arrNetwork[1];
+  		// TODO What if the security has changed?
+  	} else {
+  		$networks[$arrNetwork[2]] = array(
+  				'configured' => false,
+  				#'protocol' => ConvertToSecurity($arrNetwork[3]),
+  				'protocol' => $arrNetwork[3],
+  				#'channel' => ConvertToChannel($arrNetwork[1]),
+  				'channel' => $arrNetwork[1],
+  				'passphrase' => '',
+  				'visible' => true,
+  				'connected' => false
+  		);
+  	}
   }
 
   exec( 'iwconfig wlan0', $iwconfig_return );
