@@ -34,7 +34,7 @@ define('RASPI_OPENVPN_SERVER_CONFIG', '/etc/openvpn/server.conf');
 define('RASPI_TORPROXY_CONFIG', '/etc/tor/torrc');
 
 // Optional services, set to true to enable.
-define('RASPI_OPENVPN_ENABLED', false );
+define('RASPI_OPENVPN_ENABLED', true );
 define('RASPI_TORPROXY_ENABLED', false );
 
 include_once( RASPI_CONFIG.'/raspap.php' );
